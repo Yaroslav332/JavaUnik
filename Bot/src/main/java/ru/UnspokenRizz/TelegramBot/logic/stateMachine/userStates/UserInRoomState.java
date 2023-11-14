@@ -10,7 +10,7 @@ public class UserInRoomState extends State {
     ICommand[] commandList;
 
 
-    public UserInRoomState(StateMachine container, Long roomId) {
+    public UserInRoomState(UserStateMachine container, Long roomId) {
         super(container);
         commandList = new ICommand[]{
                 new LeaveRoomCommand(this)

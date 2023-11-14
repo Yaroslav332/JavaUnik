@@ -1,8 +1,8 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.State;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.StateMachine;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserInRoomState;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserStateMachine;
 
 public class CreateRoomCommand implements ICommand {
 
@@ -19,7 +19,7 @@ public class CreateRoomCommand implements ICommand {
 
     @Override
     public void Execute() {
-        StateMachine t = owner.getContainer();
+        UserStateMachine t = (UserStateMachine) owner.getContainer();
         //TODO create room manager
         t.setCurrent(new UserInRoomState(t, 0L));
     }

@@ -1,8 +1,8 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.State;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.StateMachine;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserDefaultState;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserStateMachine;
 
 public class LeaveRoomCommand implements ICommand {
 
@@ -19,7 +19,7 @@ public class LeaveRoomCommand implements ICommand {
 
     @Override
     public void Execute() {
-        StateMachine t = owner.getContainer();
+        UserStateMachine t = (UserStateMachine) owner.getContainer();
         t.setCurrent(new UserDefaultState(t));
     }
 }
