@@ -33,7 +33,7 @@ public class Bot extends TelegramLongPollingBot {
         var msg = update.getMessage();
         var id = msg.getFrom().getId();
         UserSpecificAnswerWriter writer = new UserSpecificAnswerWriter(this, id);
-        messageHandler.handle(new BotRequest(msg.getText()), writer);
+        messageHandler.handle(new BotRequest(msg.getText(), id), writer);
     }
 
     public void sendMessage(Long receiver, String text) {

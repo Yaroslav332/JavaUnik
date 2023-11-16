@@ -1,15 +1,16 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.State;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserDefaultState;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserStateMachine;
+import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomState;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateType;
 
-public class LeaveRoomCommand implements ICommand {
+public class LeaveRoomCommand extends UserCommand {
 
-    private final State owner;
+    public static final LeaveRoomCommand Instance = new LeaveRoomCommand();
 
-    public LeaveRoomCommand(State owner) {
-        this.owner = owner;
+    private LeaveRoomCommand() {
+
     }
 
     @Override
@@ -18,8 +19,11 @@ public class LeaveRoomCommand implements ICommand {
     }
 
     @Override
-    public void Execute() {
-        UserStateMachine t = (UserStateMachine) owner.getContainer();
-        t.setCurrent(new UserDefaultState(t));
+    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
+        Long roomId = ((UserInRoomState) userStateMachine.getState(UserStateType.InRoom)).RoomId;
+        //TODO leave room
+        if (!userStateMachine.setState(UserStateType.Default))
+            return new Result<>(null, new Exception("No such state"));
+        return new Result<>("Room left", null);
     }
 }

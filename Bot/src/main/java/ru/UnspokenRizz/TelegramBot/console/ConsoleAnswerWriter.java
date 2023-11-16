@@ -5,7 +5,7 @@ import ru.UnspokenRizz.TelegramBot.logic.BotResponse;
 
 public class ConsoleAnswerWriter implements AnswerWriter {
     @Override
-    public void writeAnswer(BotResponse response){
-        System.out.println(response.getData());
+    public void writeAnswer(BotResponse response) {
+        System.out.println(response.Data());
     }
 }

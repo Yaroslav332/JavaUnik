@@ -9,6 +9,6 @@ public class ConsoleInputReader implements InputReader {
     Scanner scanner = new Scanner(System.in);
     @Override
     public BotRequest getUserInput() {
-        return new BotRequest(scanner.nextLine());
+        return new BotRequest(scanner.nextLine(), 0L);
     }
 }

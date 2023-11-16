@@ -1,19 +1,8 @@
 package ru.UnspokenRizz.TelegramBot.logic.stateMachine;
 
-import org.apache.commons.lang3.NotImplementedException;
-import ru.UnspokenRizz.TelegramBot.logic.commands.ICommand;
+import ru.UnspokenRizz.TelegramBot.logic.commands.Command;
 
 public class State {
-
-    private final StateMachine Container;
-
-    public State(StateMachine container) {
-        Container = container;
-    }
-
-    public StateMachine getContainer() {
-        return Container;
-    }
 
     public void OnEnter() {
 
@@ -23,7 +12,17 @@ public class State {
 
     }
 
-    public ICommand[] getCommands() {
-        throw new NotImplementedException();
+    public Command[] getCommands() {
+        return null;
+    }
+
+    public String[] getCommandNames() {
+        Command[] commands = getCommands();
+        if (commands.length == 0) return new String[0];
+        String[] r = new String[commands.length];
+        for (int i = 0; i < commands.length; i++) {
+            r[i] = commands[i].getName();
+        }
+        return r;
     }
 }

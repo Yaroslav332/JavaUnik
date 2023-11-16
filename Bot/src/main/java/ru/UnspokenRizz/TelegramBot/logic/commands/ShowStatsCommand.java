@@ -1,13 +1,14 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.State;
+import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
 
-public class ShowStatsCommand implements ICommand {
+public class ShowStatsCommand extends UserCommand {
 
-    private final State owner;
+    public static final ShowStatsCommand Instance = new ShowStatsCommand();
 
-    public ShowStatsCommand(State owner) {
-        this.owner = owner;
+    private ShowStatsCommand() {
+
     }
 
     @Override
@@ -16,7 +17,8 @@ public class ShowStatsCommand implements ICommand {
     }
 
     @Override
-    public void Execute() {
+    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
         //TODO
+        return new Result<>(userStateMachine.getUserId().toString(), null);
     }
 }

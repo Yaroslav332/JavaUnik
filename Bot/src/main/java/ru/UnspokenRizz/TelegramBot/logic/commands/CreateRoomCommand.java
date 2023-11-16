@@ -1,15 +1,16 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.State;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserInRoomState;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.userStates.UserStateMachine;
+import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomState;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateType;
 
-public class CreateRoomCommand implements ICommand {
+public class CreateRoomCommand extends UserCommand {
 
-    private final State owner;
+    public static final CreateRoomCommand Instance = new CreateRoomCommand();
 
-    public CreateRoomCommand(State owner) {
-        this.owner = owner;
+    private CreateRoomCommand() {
+
     }
 
     @Override
@@ -18,9 +19,12 @@ public class CreateRoomCommand implements ICommand {
     }
 
     @Override
-    public void Execute() {
-        UserStateMachine t = (UserStateMachine) owner.getContainer();
+    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
+        if (!userStateMachine.setState(UserStateType.InRoom)) {
+            return new Result<>(null, new Exception("No state of such type"));
+        }
         //TODO create room manager
-        t.setCurrent(new UserInRoomState(t, 0L));
+        ((UserInRoomState) userStateMachine.getState(UserStateType.InRoom)).RoomId = 0L;
+        return new Result<>("Created room", null);
     }
 }

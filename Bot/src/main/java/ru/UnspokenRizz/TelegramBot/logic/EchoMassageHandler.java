@@ -7,6 +7,6 @@ public class EchoMassageHandler implements MessageHandler {
 
     @Override
     public void handle(BotRequest request, AnswerWriter writer) {
-        writer.writeAnswer(new BotResponse(request.getData()));
+        writer.writeAnswer(new BotResponse(request.Data()));
     }
 }
