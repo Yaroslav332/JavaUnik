@@ -3,10 +3,9 @@ package ru.UnspokenRizz.TelegramBot.logic;
 import ru.UnspokenRizz.TelegramBot.AnswerWriter;
 import ru.UnspokenRizz.TelegramBot.MessageHandler;
 import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
-import ru.UnspokenRizz.TelegramBot.logic.commands.Command;
 import ru.UnspokenRizz.TelegramBot.logic.commands.UserCommand;
+import ru.UnspokenRizz.TelegramBot.logic.managers.CommandManager;
 import ru.UnspokenRizz.TelegramBot.logic.managers.UserManager;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
 
 import java.util.Arrays;
 
@@ -16,20 +15,17 @@ public class CommandsHandler implements MessageHandler {
         String[] req = request.Data().split(" ");
         Long id = request.UserId();
         User user = UserManager.getUser(id);
-        UserStateMachine sm = user.stateMachine;
-        Result<String> res = null;
 
-        for (Command i : sm.getState(sm.getCurrent()).getCommands()) {
-            if (i.getName().equals(req[0])) {
-                var args = new String[req.length-1];
-                System.arraycopy(req, 1, args, 0, req.length - 1);
-                res =
-                        ((UserCommand) i).Execute(sm, args);
-                break;
+        Result<String> result = null;
+        for (UserCommand c : CommandManager.Registry){
+            if (c.getName().equals(req[0])){
+                String[] args = Arrays.copyOfRange(req, 1, req.length);
+                result = c.Execute(user, args);
             }
         }
 
-        if(res!=null) writer.writeAnswer(new BotResponse(res.result()));
-        else writer.writeAnswer(new BotResponse("No such command"));
+        if(result == null)  writer.writeAnswer(new BotResponse("No such command"));
+        else if (result.Success())  writer.writeAnswer(new BotResponse(result.result()));
+        else writer.writeAnswer(new BotResponse(result.exception().getMessage()));
     }
 }

@@ -1,9 +1,9 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomState;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateType;
+import ru.UnspokenRizz.TelegramBot.logic.User;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserDefaultComponent;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomComponent;
 
 public class LeaveRoomCommand extends UserCommand {
 
@@ -19,11 +19,13 @@ public class LeaveRoomCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
-        Long roomId = ((UserInRoomState) userStateMachine.getState(UserStateType.InRoom)).RoomId;
+    public Result<String> Execute(User user, String[] args) {
+        var res = user.GetComponent(UserInRoomComponent.class);
+        if(!res.Success()) return new Result<>(null, new Exception("Error"));
+        Long roomId = ((UserInRoomComponent)res.result()).RoomId;
         //TODO leave room
-        if (!userStateMachine.setState(UserStateType.Default))
-            return new Result<>(null, new Exception("No such state"));
-        return new Result<>("Room left", null);
+        user.RemoveComponent(UserInRoomComponent.class);
+        user.AddComponent(new UserDefaultComponent());
+        return new Result<>("Left room", null);
     }
 }

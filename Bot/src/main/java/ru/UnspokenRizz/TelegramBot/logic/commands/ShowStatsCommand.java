@@ -1,7 +1,7 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
+import ru.UnspokenRizz.TelegramBot.logic.User;
 
 public class ShowStatsCommand extends UserCommand {
 
@@ -17,8 +17,8 @@ public class ShowStatsCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
+    public Result<String> Execute(User user, String[] args) {
         //TODO
-        return new Result<>(userStateMachine.getUserId().toString(), null);
+        return new Result<>(user.Id.toString(), null);
     }
 }

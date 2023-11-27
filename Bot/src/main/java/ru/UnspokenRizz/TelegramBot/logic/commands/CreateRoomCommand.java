@@ -1,9 +1,9 @@
 package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomState;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateMachine;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserStateType;
+import ru.UnspokenRizz.TelegramBot.logic.User;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserDefaultComponent;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomComponent;
 
 public class CreateRoomCommand extends UserCommand {
 
@@ -19,12 +19,11 @@ public class CreateRoomCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(UserStateMachine userStateMachine, String[] args) {
-        if (!userStateMachine.setState(UserStateType.InRoom)) {
-            return new Result<>(null, new Exception("No state of such type"));
-        }
-        //TODO create room manager
-        ((UserInRoomState) userStateMachine.getState(UserStateType.InRoom)).RoomId = 0L;
-        return new Result<>("Created room", null);
+    public Result<String> Execute(User user, String[] args) {
+        if (!user.RemoveComponent(UserDefaultComponent.class))
+            return new Result<>(null, new Exception("Error"));
+        //TODO implement room manager
+        user.AddComponent(new UserInRoomComponent(0L));
+        return new Result<>("Room is created", null);
     }
 }
