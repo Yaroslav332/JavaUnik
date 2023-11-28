@@ -1,9 +1,14 @@
 package ru.UnspokenRizz.TelegramBot.logic;
 
+import org.telegram.telegrambots.meta.api.objects.User;
+
 public class Room {
-    public final Long id;
-    public final Long user;
-    public Room(Long id, Long user) {
-        this.id = id; this.user = user;
+    private final Long user;
+    public Room(Long user) {
+        this.user = user;
+    }
+
+    public Long getUser(){
+        return this.user;
     }
 }
