@@ -17,7 +17,7 @@ public class ShowStatsCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(User user, String[] args) {
+    public Result<String> execute(User user, String[] args) {
         //TODO
         return new Result<>(user.Id.toString(), null);
     }

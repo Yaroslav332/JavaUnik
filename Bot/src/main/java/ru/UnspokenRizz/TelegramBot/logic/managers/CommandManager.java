@@ -17,12 +17,12 @@ public class CommandManager {
         Registry.add(ShowStatsCommand.Instance);
     }
 
-    public static ArrayList<UserCommand> getCommands(User user){
+    public static ArrayList<UserCommand> getCommands(User user) {
         ArrayList<UserCommand> list = new ArrayList<>();
 
-        if(user.GetComponent(UserDefaultComponent.class).Success())
+        if (user.getComponent(UserDefaultComponent.class) != null)
             list.add(CreateRoomCommand.Instance);
-        if(user.GetComponent(UserInRoomComponent.class).Success())
+        if (user.getComponent(UserInRoomComponent.class) != null)
             list.add(LeaveRoomCommand.Instance);
 
         list.add(ShowStatsCommand.Instance);

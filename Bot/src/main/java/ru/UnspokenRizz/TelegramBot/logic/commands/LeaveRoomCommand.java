@@ -20,13 +20,13 @@ public class LeaveRoomCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(User user, String[] args) {
-        var res = user.GetComponent(UserInRoomComponent.class);
-        if(!res.Success()) return new Result<>(null, new Exception("Error"));
+    public Result<String> execute(User user, String[] args) {
+        var res = user.getComponent(UserInRoomComponent.class);
+        if(res == null) return new Result<>(null, new Exception("Error"));
         //TODO leave room for guests
         DefaultRoomManager.Instance.deleteRoom(user.Id);
-        user.RemoveComponent(UserInRoomComponent.class);
-        user.AddComponent(new UserDefaultComponent());
+        user.removeComponent(UserInRoomComponent.class);
+        user.addComponent(UserDefaultComponent.class);
         return new Result<>("Left room", null);
     }
 }

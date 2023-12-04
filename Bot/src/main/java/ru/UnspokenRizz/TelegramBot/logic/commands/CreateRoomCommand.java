@@ -20,15 +20,15 @@ public class CreateRoomCommand extends UserCommand {
     }
 
     @Override
-    public Result<String> Execute(User user, String[] args) {
-        if (!user.RemoveComponent(UserDefaultComponent.class))
+    public Result<String> execute(User user, String[] args) {
+        if (!user.removeComponent(UserDefaultComponent.class))
             return new Result<>(null, new Exception("Error"));
 
         var room = DefaultRoomManager.Instance.createRoom(user.Id);
         if(!room.Success())
             return new Result<>(null, new Exception("Error"));
 
-        user.AddComponent(new UserInRoomComponent(room.result()));
+        ((UserInRoomComponent)user.addComponent(UserInRoomComponent.class)).RoomId = room.result();
         return new Result<>("Room is created", null);
     }
 }

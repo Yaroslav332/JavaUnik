@@ -4,7 +4,12 @@ public class UserInRoomComponent extends UserComponent {
 
     public Long RoomId = 0L;
 
-    public UserInRoomComponent(Long RoomId) {
-        this.RoomId = RoomId;
+    public UserInRoomComponent() {
+
+    }
+
+    @Override
+    public void Reset(){
+        RoomId = 0L;
     }
 }

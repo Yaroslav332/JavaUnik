@@ -5,4 +5,8 @@ public abstract class UserComponent {
     public UserComponent() {
 
     }
+
+    public void Reset(){
+
+    }
 }

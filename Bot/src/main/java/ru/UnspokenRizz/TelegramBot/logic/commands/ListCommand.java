@@ -18,7 +18,7 @@ public class ListCommand extends UserCommand{
     }
 
     @Override
-    public Result<String> Execute(User user, String[] args) {
+    public Result<String> execute(User user, String[] args) {
         var res = CommandManager.getCommands(user);
         StringBuilder sb = new StringBuilder();
         for (var c : res){

@@ -20,7 +20,7 @@ public class CommandsHandler implements MessageHandler {
         for (UserCommand c : CommandManager.Registry){
             if (c.getName().equals(req[0])){
                 String[] args = Arrays.copyOfRange(req, 1, req.length);
-                result = c.Execute(user, args);
+                result = c.execute(user, args);
             }
         }
 
