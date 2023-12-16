@@ -34,10 +34,9 @@ public class CommandsHandler implements MessageHandler {
             }
         }
 
-        //
-
-
-        //
+        //TODO
+        //Тут тебе вклинить код, который будет обрабатываться, если ни одна из комманд не сработала (result == null)
+        //А значит тебе нужно проверить, что это ответ на заданный вопрос и там уже обработать, если надо
 
         if (result == null) writer.writeAnswer(new BotResponse("No such command"));
         else if (result.Success()) writer.writeAnswer(new BotResponse(result.result()));

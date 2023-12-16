@@ -2,6 +2,7 @@ package ru.UnspokenRizz.TelegramBot.logic;
 
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserComponent;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserDefaultComponent;
+import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInGameComponent;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomComponent;
 
 import java.lang.reflect.Type;
@@ -16,6 +17,7 @@ public class User {
         this.Id = Id;
         Pool.put(UserDefaultComponent.class, new UserDefaultComponent());
         Pool.put(UserInRoomComponent.class, new UserInRoomComponent());
+        Pool.put(UserInGameComponent.class, new UserInGameComponent());
         addComponent(UserDefaultComponent.class);
     }
 

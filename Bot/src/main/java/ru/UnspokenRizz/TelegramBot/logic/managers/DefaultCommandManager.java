@@ -31,8 +31,10 @@ public class DefaultCommandManager implements CommandManager {
 
         if (user.getComponent(UserDefaultComponent.class) != null)
             list.add(mapRegistry.get(CreateRoomCommand.class));
-        if (user.getComponent(UserInRoomComponent.class) != null)
+        if (user.getComponent(UserInRoomComponent.class) != null) {
             list.add(mapRegistry.get(LeaveRoomCommand.class));
+            list.add(mapRegistry.get(StartGameCommand.class));
+        }
 
         list.add(mapRegistry.get(ShowStatsCommand.class));
         list.add(mapRegistry.get(ListCommand.class));
