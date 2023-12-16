@@ -6,10 +6,8 @@ import ru.UnspokenRizz.TelegramBot.logic.Room;
 
 import java.util.HashMap;
 
-public class DefaultRoomManager implements IRoomManager {
-
-    public static final DefaultRoomManager Instance = new DefaultRoomManager();
-    private DefaultRoomManager(){
+public class DefaultRoomManager implements RoomManager {
+    public DefaultRoomManager(){
 
     }
     HashMap<Long, Room> RoomContainer = new HashMap<>();

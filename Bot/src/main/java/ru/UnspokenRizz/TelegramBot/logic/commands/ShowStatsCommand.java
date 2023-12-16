@@ -4,10 +4,7 @@ import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
 import ru.UnspokenRizz.TelegramBot.logic.User;
 
 public class ShowStatsCommand extends UserCommand {
-
-    public static final ShowStatsCommand Instance = new ShowStatsCommand();
-
-    private ShowStatsCommand() {
+    public ShowStatsCommand() {
 
     }
 

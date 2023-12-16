@@ -5,11 +5,9 @@ import ru.UnspokenRizz.TelegramBot.logic.User;
 import ru.UnspokenRizz.TelegramBot.logic.managers.CommandManager;
 
 public class ListCommand extends UserCommand{
-
-    public static final ListCommand Instance = new ListCommand();
-
-    private ListCommand(){
-
+    private final CommandManager commandManager;
+    public ListCommand(CommandManager commandManager){
+        this.commandManager = commandManager;
     }
 
     @Override
@@ -19,7 +17,7 @@ public class ListCommand extends UserCommand{
 
     @Override
     public Result<String> execute(User user, String[] args) {
-        var res = CommandManager.getCommands(user);
+        var res = commandManager.getCommands(user);
         StringBuilder sb = new StringBuilder();
         for (var c : res){
             sb.append(c.getName());

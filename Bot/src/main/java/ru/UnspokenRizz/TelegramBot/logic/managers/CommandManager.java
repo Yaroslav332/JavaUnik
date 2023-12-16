@@ -1,33 +1,12 @@
 package ru.UnspokenRizz.TelegramBot.logic.managers;
-
 import ru.UnspokenRizz.TelegramBot.logic.User;
-import ru.UnspokenRizz.TelegramBot.logic.commands.*;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserDefaultComponent;
-import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomComponent;
-
+import ru.UnspokenRizz.TelegramBot.logic.commands.UserCommand;
 import java.util.ArrayList;
 
-public class CommandManager {
-    public static final ArrayList<UserCommand> Registry = new ArrayList<>();
+public interface CommandManager {
+    ArrayList<UserCommand> getRegistry();
 
-    static {
-        Registry.add(LeaveRoomCommand.Instance);
-        Registry.add(CreateRoomCommand.Instance);
-        Registry.add(ListCommand.Instance);
-        Registry.add(ShowStatsCommand.Instance);
-    }
+    void register(UserCommand userCommand);
 
-    public static ArrayList<UserCommand> getCommands(User user) {
-        ArrayList<UserCommand> list = new ArrayList<>();
-
-        if (user.getComponent(UserDefaultComponent.class) != null)
-            list.add(CreateRoomCommand.Instance);
-        if (user.getComponent(UserInRoomComponent.class) != null)
-            list.add(LeaveRoomCommand.Instance);
-
-        list.add(ShowStatsCommand.Instance);
-        list.add(ListCommand.Instance);
-
-        return list;
-    }
+    ArrayList<UserCommand> getCommands(User user);
 }

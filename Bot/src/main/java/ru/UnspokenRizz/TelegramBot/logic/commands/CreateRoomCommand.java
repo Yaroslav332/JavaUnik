@@ -2,16 +2,15 @@ package ru.UnspokenRizz.TelegramBot.logic.commands;
 
 import ru.UnspokenRizz.TelegramBot.logic.Misc.Result;
 import ru.UnspokenRizz.TelegramBot.logic.User;
-import ru.UnspokenRizz.TelegramBot.logic.managers.DefaultRoomManager;
+import ru.UnspokenRizz.TelegramBot.logic.managers.RoomManager;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserDefaultComponent;
 import ru.UnspokenRizz.TelegramBot.logic.stateMachine.user.UserInRoomComponent;
 
 public class CreateRoomCommand extends UserCommand {
+    private final RoomManager roomManager;
 
-    public static final CreateRoomCommand Instance = new CreateRoomCommand();
-
-    private CreateRoomCommand() {
-
+    public CreateRoomCommand(RoomManager roomManager) {
+        this.roomManager = roomManager;
     }
 
     @Override
@@ -24,7 +23,7 @@ public class CreateRoomCommand extends UserCommand {
         if (!user.removeComponent(UserDefaultComponent.class))
             return new Result<>(null, new Exception("Error"));
 
-        var room = DefaultRoomManager.Instance.createRoom(user.Id);
+        var room = roomManager.createRoom(user.Id);
         if(!room.Success())
             return new Result<>(null, new Exception("Error"));
 
